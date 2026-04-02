@@ -91,3 +91,16 @@ Ce document recense les failles de securite identifiees pendant l'epreuve, leur 
 | Mesure corrective appliquee | Remplacement de `payload.items` par `payload.data` dans `lib/api.ts` |
 | Statut | `Corrige` |
 | Preuve de correction | Vérification via `curl` que l'API retourne bien `{"data":[...]}` |
+
+## Faille 8
+
+| Champ | Description |
+| --- | --- |
+| Date de detection | 2 avril 2026 |
+| Composant concerne | Microservice Next.js — `dispatch-dashboard/.env.local` |
+| Description de la faille | `LARAVEL_API_TOKEN=change-me` — le microservice utilisait un token invalide pour appeler l'API Laravel |
+| Severite estimee | `Haute` |
+| Impact potentiel | Le microservice ne peut pas s'authentifier correctement auprès de l'API |
+| Mesure corrective appliquee | Token mis à jour dans `.env.local` avec la valeur sécurisée générée via `openssl rand -base64 32` |
+| Statut | `Corrige` |
+| Preuve de correction | Fichier `.env.local` mis à jour sur le serveur de qualification |

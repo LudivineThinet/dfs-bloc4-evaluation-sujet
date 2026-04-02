@@ -4,7 +4,27 @@
 
 ## 1. Analyse des besoins techniques
 
-<!-- Decrire les besoins techniques de l'application a partir de l'environnement de qualification : composants, dependances, volumetrie estimee, performances attendues. -->
+L'application OpsTrack Field Service repose sur une stack technique multi-composants identifiée sur l'environnement de qualification :
+
+| Composant | Technologie | Version |
+| --- | --- | --- |
+| Langage backend | PHP | 8.4.18 |
+| Framework backend | Laravel | 12 |
+| Serveur web | Apache2 | 2.4 |
+| Base de données relationnelle | MySQL | 8.0.45 |
+| Base de données NoSQL | MongoDB | 8.0.19 |
+| Cache et stockage temporaire | Redis | 7.0.15 |
+| Microservice tableau de bord | Next.js | - |
+| Système d'exploitation | Ubuntu | 24.04 LTS |
+
+L'application expose une interface web principale, une API REST, un webhook (`hooks.php`) et un microservice Next.js (`dispatch-dashboard`). Elle consomme également une API publique tierce (Open Meteo).
+
+Les besoins techniques principaux sont :
+- un serveur web capable de servir PHP et de proxyfier vers Node.js
+- deux bases de données (relationnelle et NoSQL) avec persistence des données
+- un système de cache performant (Redis)
+- une exposition publique sécurisée (HTTPS)
+- une journalisation exploitable pour la maintenance
 
 ## 2. Architecture cible proposee
 

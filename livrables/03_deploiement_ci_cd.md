@@ -2,9 +2,6 @@
 
 > Competence evaluee : `C31` — Mettre en oeuvre un systeme de deploiement automatise respectant les bonnes pratiques DevOps.
 
-# Deploiement automatise
-> Competence evaluee : `C31` — Mettre en oeuvre un systeme de deploiement automatise respectant les bonnes pratiques DevOps.
-
 ## 1. Strategie de deploiement
 
 ### 1.1 Vue d'ensemble

@@ -32,7 +32,6 @@ Internet → Apache2 → Laravel 12
 
 ## 3. Points d'attention connus
 
-- `OPSTRACK_API_TOKEN` dans `.env` doit être remplacé par un token sécurisé
 - Le microservice Next.js doit être démarré manuellement sur la production
 - La base de production est vide — pas de données initiales
 - 75 mises à jour système en attente sur la production dont 30 de sécurité
@@ -73,21 +72,30 @@ mysql -u root -p opstrack < backup.sql
 
 ## 5. Bugs et failles corriges pendant l'epreuve
 
-- Cache Redis mal configuré (`CACHE_STORE=database` → `redis`) — causait des compteurs périmés sur le tableau de bord
-- `Options Indexes` désactivé dans Apache — empêche la navigation dans les dossiers
+**Bugs corrigés :**
+- Cache Redis mal configuré (`CACHE_STORE=database` → `redis`) — causait des compteurs périmés
+- `TicketController` : `orWhereRaw` mal groupé — filtres de priorité désormais corrects
+- `WebhookController` : déduplication via `firstOrCreate()` + statut mis à jour depuis le payload
+- `Next.js dispatch-dashboard` : `payload.items` → `payload.data` — tableau de bord fonctionnel
+
+**Failles corrigées :**
+- `Options Indexes` désactivé dans Apache
 - IP malveillante `206.189.35.70` bloquée via `ufw`
+- `OPSTRACK_API_TOKEN` remplacé par un token sécurisé via `openssl rand -base64 32`
+- `.env.example` : identifiants réels remplacés par des placeholders
+- Injection SQL via `orWhereRaw` corrigée dans `TicketController`
 
 ## 6. Ameliorations recommandees
 
-- Remplacer `OPSTRACK_API_TOKEN=change-me` par un token sécurisé
 - Mettre à jour les 75 paquets système en attente
 - Démarrer et superviser le microservice Next.js en production
-- Mettre en place un pipeline CI/CD via GitHub Actions quand le dépôt sera accessible
 - Implémenter une stratégie de sauvegarde automatique
+- Ajouter une signature HMAC sur le webhook pour renforcer la sécurité
+
 
 ## 7. Contacts et ressources
 
-- Dépôt de code : `https://github.com/itakademy/dfs-bloc4-evaluation-app`
+- Dépôt de code : `https://github.com/itakademy/dfs-bloc4-evaluation-sujet`
 - Documentation Laravel : `https://laravel.com/docs/12.x`
 - Environnement de qualification : `http://eval-dfs-q-tpl-20262-09.it-students.fr`
 - Environnement de production : `https://eval-dfs-p-tpl-20262-09.it-students.fr`

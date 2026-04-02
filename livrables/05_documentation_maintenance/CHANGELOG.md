@@ -24,3 +24,4 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/).
 - Blocage de l'IP malveillante `206.189.35.70` via `ufw` (tentatives de path traversal et injection)
 - Désactivation de `Options Indexes` dans Apache (empêche la navigation dans les dossiers)
 - Identification du token `OPSTRACK_API_TOKEN=change-me` comme faille à corriger
+- Remplacement de `orWhereRaw` par `orWhere` dans `TicketController` , suppression du risque d'injection SQL via le paramètre de recherche

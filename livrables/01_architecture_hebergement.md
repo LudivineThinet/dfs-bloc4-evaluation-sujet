@@ -14,7 +14,7 @@ L'application OpsTrack Field Service repose sur une stack technique multi-compos
 | Base de données relationnelle | MySQL | 8.0.45 |
 | Base de données NoSQL | MongoDB | 8.0.19 |
 | Cache et stockage temporaire | Redis | 7.0.15 |
-| Microservice tableau de bord | Next.js | - |
+| Microservice tableau de bord | Next.js | 15.3.1 |
 | Système d'exploitation | Ubuntu | 24.04 LTS |
 
 L'application expose une interface web principale, une API REST, un webhook (`hooks.php`) et un microservice Next.js (`dispatch-dashboard`). Elle consomme également une API publique tierce (Open Meteo).

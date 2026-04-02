@@ -142,7 +142,7 @@ L'architecture actuelle repose sur une seule machine en production (contrainte �
 - Fichier `.env` non versionné (présent dans `.gitignore`)
 - Variables d'environnement sensibles stockées hors du dépôt Git
 - Rotation régulière des tokens et mots de passe recommandée
-- `OPSTRACK_API_TOKEN` doit être remplacé par une valeur sécurisée générée aléatoirement
+OPSTRACK_API_TOKEN a été remplacé par une valeur sécurisée générée via openssl rand -base64 32
 
 **Chiffrement :**
 - HTTPS obligatoire en production via certificat Let's Encrypt
@@ -174,5 +174,4 @@ L'application OpsTrack traite des données personnelles (techniciens, sites d'in
 - Accès SSH par clé privée uniquement, pas de mot de passe
 
 **Limites identifiées :**
-- Le token API `change-me` n'est pas sécurisé et doit être remplacé en production
 - L'authentification HTTP Basic du webhook transite en clair sans HTTPS

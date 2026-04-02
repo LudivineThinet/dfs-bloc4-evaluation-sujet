@@ -72,23 +72,52 @@
 
 ### 6.1 Faille identifiee
 
-<!-- Decrire la faille de securite identifiee. -->
+Deux types d'attaques ont été détectés dans les logs Apache en provenance de l'IP `206.189.35.70` :
+
+1. **Path traversal** : tentatives d'accès à `/cgi-bin/../../../../bin/sh` via des chemins encodés en URL, visant à exécuter un shell système.
+2. **Injection via paramètre `lang`** : requêtes ciblant `index.php?lang=../../../../usr/local/lib/php/pearcmd` pour tenter de créer un fichier PHP malveillant dans `/tmp/`. Ces requêtes ont reçu une réponse HTTP 200.
+3. **Tentative de vol du fichier `.env`** : requête `GET /.env` interceptée (réponse 404).
 
 ### 6.2 Demarche de diagnostic
 
-<!-- Decrire les etapes de diagnostic suivies. -->
+- Connexion SSH au serveur de qualification
+- Lecture des logs Apache : `sudo tail -50 /var/log/apache2/opstrack_error.log` et `opstrack_access.log`
+- Vérification de la présence de fichiers PHP suspects dans `/tmp/` : `ls /tmp/*.php` → aucun fichier trouvé
 
 ### 6.3 Evaluation du risque
 
-<!-- Evaluer l'impact et la criticite de la faille. -->
+| Attaque | Sévérité | Résultat |
+| --- | --- | --- |
+| Path traversal | Haute | Bloquée par Apache (AH10244) |
+| Injection via `lang` | Critique | Réponse 200 — serveur a traité la requête |
+| Vol du `.env` | Haute | Bloquée (404) |
+
+L'injection via le paramètre `lang` est la plus préoccupante : le serveur a répondu 200, ce qui indique que la requête a été traitée par Laravel sans validation suffisante de l'entrée.
 
 ### 6.4 Mesure corrective appliquee
 
-<!-- Decrire la remediation mise en oeuvre. -->
+**1. Désactivation de `Options Indexes` dans la configuration Apache** pour empêcher la navigation dans les dossiers :
+```apache
+<Directory /var/www/opstrack/public>
+    AllowOverride All
+    Require all granted
+    Options -Indexes
+</Directory>
+```
+
+**2. Validation des paramètres d'entrée** : le paramètre `lang` ne devrait accepter que des valeurs alphanumériques connues. À corriger dans le code Laravel.
+
+**3. Blocage de l'IP malveillante** :
+```bash
+sudo ufw deny from 206.189.35.70
+```
 
 ### 6.5 Verification apres correction
-
-<!-- Fournir une preuve que la faille est corrigee. -->
+```bash
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+sudo ufw status
+```
 
 ## 7. Autres observations
 

@@ -24,7 +24,18 @@ Les logs Apache sont configurés dans le virtualhost : erreurs dans `opstrack_er
 
 ## 2. Outils et configurations d'audit
 
-<!-- Decrire les outils ou configurations d'audit mis en place pour analyser l'etat du systeme et de l'application. -->
+Les outils suivants ont été utilisés pour auditer l'état du système et de l'application :
+
+| Outil | Usage |
+| --- | --- |
+| `systemctl status` | Vérification de l'état des services (Apache, MySQL, Redis, MongoDB) |
+| `sudo tail -50 /var/log/apache2/opstrack_error.log` | Lecture des erreurs Apache |
+| `sudo tail -50 /var/log/apache2/opstrack_access.log` | Analyse des accès et détection d'attaques |
+| `cat /var/www/opstrack/.env` | Audit de la configuration applicative |
+| `sudo ufw status` | Vérification des règles de pare-feu |
+| `ls /tmp/*.php` | Recherche de fichiers PHP suspects |
+
+L'audit a permis d'identifier deux problèmes majeurs : une mauvaise configuration du cache (Redis non utilisé) et des tentatives d'intrusion actives depuis l'IP `206.189.35.70`.
 
 ## 3. Supervision et alertes
 

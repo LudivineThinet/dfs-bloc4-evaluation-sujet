@@ -60,11 +60,24 @@ Dans le cadre de cet examen, la supervision est assurée manuellement via la lec
 
 | Element | Methode | Frequence | Retention |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| Base MySQL | `mysqldump -u root -p opstrack > backup.sql` | Quotidienne | 7 jours |
+| Base MongoDB | `mongodump --db opstrack_logs` | Quotidienne | 7 jours |
+| Fichier `.env` | Copie manuelle sécurisée | A chaque modification | Illimitée |
+| Code source | Dépôt GitHub | A chaque commit | Illimitée |
 
 ### 4.2 Procedure de restauration
 
-<!-- Decrire la procedure de restauration et, si possible, fournir une preuve de validation. -->
+Pour restaurer la base MySQL :
+```bash
+mysql -u root -p opstrack < backup.sql
+```
+
+Pour restaurer MongoDB :
+```bash
+mongorestore --db opstrack_logs dump/opstrack_logs
+```
+
+La procédure de sauvegarde a été validée sur l'environnement de qualification. Une restauration complète en production nécessiterait l'arrêt temporaire de l'application.
 
 ## 5. Diagnostic et correction du bug technique
 

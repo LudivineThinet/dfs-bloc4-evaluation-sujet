@@ -50,23 +50,36 @@
 
 ### 5.1 Symptome observe
 
-<!-- Decrire le symptome constate. -->
+Le tableau de bord principal affiche des compteurs (tickets ouverts, critiques, techniciens) qui ne correspondent pas à l'état réel des données. Les valeurs semblent figées et ne se mettent pas à jour correctement.
 
 ### 5.2 Demarche de diagnostic
 
-<!-- Decrire les etapes de diagnostic suivies, les outils utilises, les hypotheses testees. -->
+- Lecture du fichier `.env` : `cat /var/www/opstrack/.env`
+- Vérification de la configuration du cache : `CACHE_STORE=database`
+- Or l'architecture de l'application prévoit Redis comme système de cache
+- Vérification que Redis tourne bien : `systemctl status redis` → actif
 
 ### 5.3 Cause racine identifiee
 
-<!-- Expliquer la cause technique du bug. -->
+Le cache est configuré sur la base de données MySQL (`CACHE_STORE=database`) au lieu de Redis (`CACHE_STORE=redis`). Les données mises en cache ne se rafraîchissent pas avec la même rapidité, ce qui provoque l'affichage de compteurs périmés sur le tableau de bord.
 
 ### 5.4 Correctif applique
 
-<!-- Decrire le correctif mis en oeuvre. -->
+Modification du fichier `.env` :
+```
+CACHE_STORE=redis
+```
+
+Puis vidage du cache existant pour forcer le rechargement :
+```bash
+cd /var/www/opstrack
+php artisan cache:clear
+php artisan config:clear
+```
 
 ### 5.5 Verification apres correction
 
-<!-- Fournir une preuve que le bug est resolu (test, capture, log, etc.). -->
+Rechargement de la page du tableau de bord et vérification que les compteurs correspondent aux données réelles en base MySQL.
 
 ## 6. Diagnostic et correction de la faille de securite
 

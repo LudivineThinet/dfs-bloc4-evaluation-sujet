@@ -66,9 +66,24 @@ Internet
 
 <!-- Justifier le choix du fournisseur d'hebergement et des services retenus. -->
 
+## 3. Choix du fournisseur et des services
+
 ### 3.1 Fournisseur retenu
 
+**Amazon Web Services (AWS)** — région `eu-west-3` (Paris)
+
 ### 3.2 Justification du choix
+
+| Critère | Justification |
+| --- | --- |
+| Proximité géographique | Région Paris (eu-west-3) — données hébergées en France, conformité RGPD facilitée |
+| Maturité | AWS est le leader mondial du cloud, documentation et support étendus |
+| Services managés | RDS pour MySQL, ElastiCache pour Redis, DocumentDB pour MongoDB disponibles |
+| Élasticité | Auto-scaling natif, possibilité de monter en charge rapidement |
+| Sécurité | VPC, groupes de sécurité, IAM, chiffrement natif |
+| Coût | Modèle pay-as-you-go adapté à une application en croissance |
+
+Le choix d'AWS est cohérent avec l'environnement fourni pour l'épreuve, qui repose déjà sur des instances EC2 en région eu-west-3.
 
 ## 4. Estimation des couts
 

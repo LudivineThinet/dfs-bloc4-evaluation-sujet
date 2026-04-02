@@ -83,36 +83,73 @@ La procédure de sauvegarde a été validée sur l'environnement de qualificatio
 
 ### 5.1 Symptome observe
 
+**a) Cache Redis mal configuré**
 Le tableau de bord principal affiche des compteurs (tickets ouverts, critiques, techniciens) qui ne correspondent pas à l'état réel des données. Les valeurs semblent figées et ne se mettent pas à jour correctement.
+
+**b) Filtres de recherche incohérents**
+Une recherche de tickets combinée à un filtre de priorité retourne des résultats incorrects — des tickets de toutes priorités apparaissent malgré le filtre appliqué.
 
 ### 5.2 Demarche de diagnostic
 
+**a) Cache Redis mal configuré**
 - Lecture du fichier `.env` : `cat /var/www/opstrack/.env`
 - Vérification de la configuration du cache : `CACHE_STORE=database`
 - Or l'architecture de l'application prévoit Redis comme système de cache
 - Vérification que Redis tourne bien : `systemctl status redis` → actif
 
+**b) Filtres de recherche incohérents**
+- Lecture du fichier `app/Http/Controllers/Api/TicketController.php`
+- Identification de l'utilisation de `orWhereRaw` avec interpolation directe de `$search`
+- La requête SQL générée ne groupe pas correctement le `OR` avec le filtre de priorité
+
 ### 5.3 Cause racine identifiee
 
+**a) Cache Redis mal configuré**
 Le cache est configuré sur la base de données MySQL (`CACHE_STORE=database`) au lieu de Redis (`CACHE_STORE=redis`). Les données mises en cache ne se rafraîchissent pas avec la même rapidité, ce qui provoque l'affichage de compteurs périmés sur le tableau de bord.
 
+**b) Filtres de recherche incohérents**
+```php
+// Code problématique
+$query->where('title', 'like', "%{$search}%")
+    ->orWhereRaw("reference like '%{$search}%'");
+```
+Le `OR` sans parenthèses fait que le filtre priorité ne s'applique pas correctement sur les résultats.
+
 ### 5.4 Correctif applique
+
+**a) Cache Redis mal configuré**
 
 Modification du fichier `.env` :
 ```
 CACHE_STORE=redis
 ```
-
-Puis vidage du cache existant pour forcer le rechargement :
+Puis vidage du cache existant :
 ```bash
 cd /var/www/opstrack
 php artisan cache:clear
 php artisan config:clear
 ```
 
+**b) Filtres de recherche incohérents**
+```php
+// Code corrigé
+$query->where(function ($q) use ($search) {
+    $q->where('title', 'like', "%{$search}%")
+      ->orWhere('reference', 'like', "%{$search}%");
+});
+```
+Le groupement via `where(function...)` isole le `OR` entre parenthèses. `orWhere` remplace `orWhereRaw` — Laravel gère l'échappement automatiquement.
+
 ### 5.5 Verification apres correction
 
+**a) Cache Redis mal configuré**
 Rechargement de la page du tableau de bord et vérification que les compteurs correspondent aux données réelles en base MySQL.
+
+**b) Filtres de recherche incohérents**
+```bash
+php -l /var/www/opstrack/app/Http/Controllers/Api/TicketController.php
+# Résultat : No syntax errors detected
+```
 
 ## 6. Diagnostic et correction de la faille de securite
 

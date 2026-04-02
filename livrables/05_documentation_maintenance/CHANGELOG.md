@@ -28,3 +28,4 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/).
 - Identification du token `OPSTRACK_API_TOKEN=change-me` comme faille à corriger
 - Remplacement de `orWhereRaw` par `orWhere` dans `TicketController` , suppression du risque d'injection SQL via le paramètre de recherche
 - .env.example : identifiants réels remplacés par des placeholders génériques
+- Token `OPSTRACK_API_TOKEN` remplacé par une valeur sécurisée générée via `openssl rand -base64 32`

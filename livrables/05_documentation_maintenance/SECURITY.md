@@ -52,3 +52,42 @@ Ce document recense les failles de securite identifiees pendant l'epreuve, leur 
 | Mesure corrective appliquee | Remplacement de `orWhereRaw` par `orWhere` — Laravel gère l'échappement automatiquement |
 | Statut | `Corrige` |
 | Preuve de correction | `php -l TicketController.php` → `No syntax errors detected` |
+
+## Faille 5
+
+| Champ | Description |
+| --- | --- |
+| Date de detection | 2 avril 2026 |
+| Composant concerne | Fichier `.env.example` — versionné dans le dépôt Git |
+| Description de la faille | Le fichier `.env.example` contient les identifiants réels de démonstration : `DB_PASSWORD=0000`, `OPSTRACK_API_TOKEN=change-me`, `WEBHOOK_BASIC_USER=user`, `WEBHOOK_BASIC_PASSWORD=password` |
+| Severite estimee | `Haute` |
+| Impact potentiel | Exposition publique des identifiants de l'environnement de qualification à quiconque ayant accès au dépôt |
+| Mesure corrective appliquee | Remplacement de toutes les valeurs sensibles par des placeholders génériques (`your_db_password`, `your_secure_token_here`, etc.) |
+| Statut | `Corrige` |
+| Preuve de correction | Fichier `.env.example` modifié sur le serveur de qualification |
+
+## Faille 6
+
+| Champ | Description |
+| --- | --- |
+| Date de detection | 2 avril 2026 |
+| Composant concerne | `WebhookController` — endpoint `hooks.php` |
+| Description de la faille | Le webhook crée une nouvelle intervention à chaque appel sans vérifier si `external_event_id` existe déjà (pas de déduplication). De plus, le statut du ticket est systématiquement forcé à `scheduled` quelle que soit la valeur transmise par le webhook |
+| Severite estimee | `Haute` |
+| Impact potentiel | Création de doublons d'interventions en base de données, écart entre l'état réel du ticket et ce qu'affiche l'application |
+| Mesure corrective appliquee | Remplacement de `create()` par `firstOrCreate()` sur `external_event_id`, et remplacement de `status = scheduled` par `status = $payload['status']` |
+| Statut | `Corrige` |
+| Preuve de correction | `php -l WebhookController.php` → `No syntax errors detected` |
+
+## Faille 7
+
+| Champ | Description |
+| --- | --- |
+| Date de detection | 2 avril 2026 |
+| Composant concerne | Microservice Next.js — `dispatch-dashboard/lib/api.ts` |
+| Description de la faille | Le microservice lit `payload.items` au lieu de `payload.data` — la réponse Laravel retourne toujours `data`, donc le tableau de bord affiche toujours une liste vide malgré une API fonctionnelle |
+| Severite estimee | `Moyenne` |
+| Impact potentiel | Tableau de bord secondaire toujours vide, supervision incomplète |
+| Mesure corrective appliquee | Remplacement de `payload.items` par `payload.data` dans `lib/api.ts` |
+| Statut | `Corrige` |
+| Preuve de correction | Vérification via `curl` que l'API retourne bien `{"data":[...]}` |

@@ -18,6 +18,19 @@
 | Document | Description |
 | --- | --- |
 | [01_sujet_candidat.md](01_sujet_candidat.md) | Sujet complet remis aux candidats |
+| [livrables/](livrables/) | Templates des livrables a completer |
+
+## Templates de livrables
+
+Les templates ci-dessous structurent les livrables attendus. Le candidat peut les utiliser comme point de depart ou proposer sa propre organisation, a condition de couvrir les attendus du sujet.
+
+| Livrable | Template | Competence |
+| --- | --- | --- |
+| `01_architecture_hebergement.md` | [Template](livrables/01_architecture_hebergement.md) | `C29` |
+| `02_exploitation_securisee.md` | [Template](livrables/02_exploitation_securisee.md) | `C28`, `C30` |
+| `03_deploiement_ci_cd.md` | [Template](livrables/03_deploiement_ci_cd.md) | `C31` |
+| `04_supervision_maintien.md` | [Template](livrables/04_supervision_maintien.md) | `C32` |
+| `05_documentation_maintenance.zip` | [Dossier](livrables/05_documentation_maintenance/) | `C27` |
 
 ## Application support
 

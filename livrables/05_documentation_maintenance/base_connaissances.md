@@ -84,6 +84,12 @@ mysql -u root -p opstrack < backup.sql
 - `OPSTRACK_API_TOKEN` remplacé par un token sécurisé via `openssl rand -base64 32`
 - `.env.example` : identifiants réels remplacés par des placeholders
 - Injection SQL via `orWhereRaw` corrigée dans `TicketController`
+- `WebhookController` : statut forcé à `scheduled` remplacé par le statut du payload
+- `Next.js dispatch-dashboard` : `payload.items` → `payload.data`
+- Token Next.js `.env.local` : `change-me` remplacé par le token sécurisé
+
+**Failles identifiées non corrigées :**
+- `hooks.php` sans signature HMAC complémentaire — correction recommandée pour une prochaine itération
 
 ## 6. Ameliorations recommandees
 

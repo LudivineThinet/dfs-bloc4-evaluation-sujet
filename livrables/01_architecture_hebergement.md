@@ -136,7 +136,26 @@ L'architecture actuelle repose sur une seule machine en production (contrainte �
 
 ## 7. Securite et sauvegarde
 
-<!-- Decrire les mesures de securite integrees a l'architecture cible : isolation reseau, chiffrement, gestion des secrets, strategie de sauvegarde. -->
+**Sécurité réseau :**
+- Pare-feu AWS (Security Groups) : seuls les ports 80, 443 et 22 sont exposés publiquement
+- Port 22 (SSH) accessible uniquement depuis des IP connues
+- Services internes (MySQL 3306, Redis 6379, MongoDB 27017) non exposés publiquement
+
+**Gestion des secrets :**
+- Fichier `.env` non versionné (présent dans `.gitignore`)
+- Variables d'environnement sensibles stockées hors du dépôt Git
+- Rotation régulière des tokens et mots de passe recommandée
+- `OPSTRACK_API_TOKEN` doit être remplacé par une valeur sécurisée générée aléatoirement
+
+**Chiffrement :**
+- HTTPS obligatoire en production via certificat Let's Encrypt
+- Connexions à la base de données en localhost (pas de transit réseau)
+
+**Sauvegarde :**
+- Dumps MySQL quotidiens stockés sur S3
+- Dumps MongoDB quotidiens stockés sur S3
+- Rétention 7 jours
+- Snapshots EC2 hebdomadaires
 
 ## 8. Conformite et contraintes reglementaires
 

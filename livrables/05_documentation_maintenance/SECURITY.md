@@ -39,3 +39,16 @@ Ce document recense les failles de securite identifiees pendant l'epreuve, leur 
 | Mesure corrective appliquee | Faille identifiée, correction recommandée : générer un token aléatoire via `openssl rand -base64 32` et le renseigner dans `.env` |
 | Statut | `Identifie, non corrige` |
 | Preuve de correction | N/A |
+
+## Faille 4
+
+| Champ | Description |
+| --- | --- |
+| Date de detection | 2 avril 2026 |
+| Composant concerne | `TicketController` — endpoint `GET /api/v1/tickets` |
+| Description de la faille | `orWhereRaw` avec interpolation directe de la variable `$search` — risque d'injection SQL sur le paramètre de recherche |
+| Severite estimee | `Haute` |
+| Impact potentiel | Manipulation de la requête SQL, extraction de données non autorisées |
+| Mesure corrective appliquee | Remplacement de `orWhereRaw` par `orWhere` — Laravel gère l'échappement automatiquement |
+| Statut | `Corrige` |
+| Preuve de correction | `php -l TicketController.php` → `No syntax errors detected` |

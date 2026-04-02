@@ -82,7 +82,20 @@ Le script est idempotent — il peut être exécuté plusieurs fois avec le mêm
 
 ### 6.2 Preuve de deploiement reussi
 
-L'application est accessible en HTTPS à l'adresse `https://eval-dfs-p-tpl-20262-09.it-students.fr` et affiche le tableau de bord OpsTrack. Les migrations ont été exécutées avec succès le 2 avril 2026.
+Le script `deploy.sh` a été exécuté avec succès et a retourné :
+```
+=== Vérification qualification ===
+OK
+=== Transfert du code ===
+tar: Removing leading `/' from member names
+=== Permissions ===
+=== Migrations et cache ===
+   INFO  Nothing to migrate.
+   INFO  Application cache cleared successfully.
+   INFO  Configuration cache cleared successfully.
+=== Rechargement Apache ===
+=== Smoke test ===
+Déploiement réussi ✅
 
 ## 7. Conduite a tenir en cas d'echec
 

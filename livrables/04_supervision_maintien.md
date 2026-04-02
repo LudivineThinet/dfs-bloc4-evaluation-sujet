@@ -206,7 +206,7 @@ sudo ufw status
 
 - **Mises à jour système en attente** : 42 paquets sont à mettre à jour dont 12 correctifs de sécurité. Commande : `sudo apt upgrade`
 - **Redémarrage système requis** : le serveur signale un redémarrage nécessaire suite à des mises à jour noyau.
-- **APP_URL incorrecte** : le fichier `.env` pointait vers une ancienne machine (`ec2-13-39-149-207.eu-west-3.compute.amazonaws.com`) qui ne répond plus. À corriger avec l'URL de production.
-- **OPSTRACK_API_TOKEN non sécurisé** : la valeur `change-me` n'a jamais été remplacée par un token réel. Constitue une faille d'authentification potentielle.
+- APP_URL corrigée : le fichier .env pointait vers une ancienne machine (ec2-13-39-149-207.eu-west-3.compute.amazonaws.com). L'URL a été mise à jour avec l'URL de production.
+- OPSTRACK_API_TOKEN sécurisé : le token a été remplacé par une valeur générée via openssl rand -base64 32.
 - **Disque à 77.5%** : l'espace disque est déjà significativement utilisé, à surveiller.
 - **Tentative de vol du `.env`** : une requête `GET /.env` a été interceptée (réponse 404). Le fichier n'est pas accessible publiquement mais la tentative confirme l'intérêt des attaquants pour ce fichier.

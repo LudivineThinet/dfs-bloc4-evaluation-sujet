@@ -36,9 +36,9 @@ Ce document recense les failles de securite identifiees pendant l'epreuve, leur 
 | Description de la faille | `OPSTRACK_API_TOKEN=change-me` — token d'authentification API jamais remplacé par une valeur sécurisée |
 | Severite estimee | `Haute` |
 | Impact potentiel | Accès non autorisé à l'ensemble des endpoints API protégés |
-| Mesure corrective appliquee | Faille identifiée, correction recommandée : générer un token aléatoire via `openssl rand -base64 32` et le renseigner dans `.env` |
-| Statut | `Identifie, non corrige` |
-| Preuve de correction | N/A |
+| Mesure corrective appliquee | Token remplacé par une valeur sécurisée générée via `openssl rand -base64 32` et renseignée dans `.env` |
+| Statut | `Corrige` |
+| Preuve de correction | `php artisan config:clear` exécuté avec succès sur le serveur de qualification |
 
 ## Faille 4
 

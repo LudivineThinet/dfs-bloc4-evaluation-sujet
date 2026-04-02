@@ -103,7 +103,19 @@ Le choix d'AWS est cohérent avec l'environnement fourni pour l'épreuve, qui re
 
 ## 5. Elasticite et evolutivite
 
-<!-- Expliquer la strategie retenue pour absorber la croissance de l'application : scalabilite horizontale, verticale, auto-scaling, etc. -->
+L'architecture cible prévoit deux niveaux d'évolution :
+
+**Court terme — scalabilité verticale**
+Augmentation des ressources de l'instance EC2 existante (passage de t3.medium à t3.large par exemple) sans modifier l'architecture. Solution simple et rapide à mettre en œuvre.
+
+**Moyen terme — scalabilité horizontale**
+Mise en place d'un load balancer (AWS ALB) devant plusieurs instances EC2 identiques. Le cache Redis centralisé (ElastiCache) et la base de données managée (RDS) permettent à plusieurs instances de partager le même état.
+
+**Composants déjà prêts pour la scalabilité**
+- Redis : externalisable sur ElastiCache sans modification du code
+- MySQL : externalisable sur RDS sans modification du code
+- Laravel : stateless par conception, compatible multi-instances
+- Next.js : microservice indépendant, scalable séparément
 
 ## 6. Disponibilite et continuite de service
 

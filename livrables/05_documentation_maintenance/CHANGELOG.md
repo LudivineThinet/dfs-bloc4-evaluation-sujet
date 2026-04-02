@@ -18,6 +18,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/).
 
 ### Corrige
 - Bug : les compteurs du tableau de bord affichaient des valeurs périmées en raison d'une mauvaise configuration du cache (Redis non utilisé)
+- Bug SQL : recherche de tickets avec `orWhereRaw` mal groupée corrigée dans `TicketController`, les filtres de priorité s'appliquent désormais correctement
 
 ### Securite
 - Blocage de l'IP malveillante `206.189.35.70` via `ufw` (tentatives de path traversal et injection)

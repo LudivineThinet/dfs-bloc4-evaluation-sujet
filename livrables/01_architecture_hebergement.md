@@ -119,7 +119,20 @@ Mise en place d'un load balancer (AWS ALB) devant plusieurs instances EC2 identi
 
 ## 6. Disponibilite et continuite de service
 
-<!-- Decrire les mesures prevues pour garantir la disponibilite : redondance, basculement, SLA cible, tolerance de panne. -->
+**SLA cible : 99,9% de disponibilité** (environ 8h d'indisponibilité maximum par an)
+
+**Mesures prévues :**
+
+| Mesure | Description |
+| --- | --- |
+| Sauvegardes automatiques | MySQL et MongoDB sauvegardés quotidiennement sur S3 |
+| Snapshots EC2 | Snapshot hebdomadaire de l'instance de production |
+| Redémarrage automatique | Services configurés avec `systemctl enable` pour redémarrer automatiquement au reboot |
+| Supervision HTTP | Sonde de disponibilité sur l'endpoint `/api/health` toutes les 5 minutes |
+| Procédure de rollback | En cas d'échec de déploiement, retour à la version précédente via Git |
+
+**Limite connue :**
+L'architecture actuelle repose sur une seule machine en production (contrainte économique imposée). En cas de panne matérielle, un temps de restauration est à prévoir. Une architecture multi-zones (AWS Multi-AZ) est recommandée à terme.
 
 ## 7. Securite et sauvegarde
 

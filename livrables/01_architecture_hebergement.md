@@ -159,4 +159,23 @@ L'architecture actuelle repose sur une seule machine en production (contrainte �
 
 ## 8. Conformite et contraintes reglementaires
 
-<!-- Expliciter les contraintes reglementaires prises en compte : protection des donnees, localisation, tracabilite, RGPD, etc. -->
+**RGPD (Règlement Général sur la Protection des Données) :**
+
+L'application OpsTrack traite des données personnelles (techniciens, sites d'intervention). Les mesures suivantes sont prises en compte :
+
+| Exigence RGPD | Mesure mise en place |
+| --- | --- |
+| Localisation des données | Hébergement en région AWS eu-west-3 (Paris, France) |
+| Confidentialité | HTTPS obligatoire, accès restreint aux données |
+| Traçabilité | Journalisation des accès et des modifications via MongoDB |
+| Droit à l'effacement | À implémenter au niveau applicatif dans Laravel |
+| Minimisation des données | Seules les données nécessaires aux interventions sont collectées |
+
+**Sécurité des accès :**
+- Authentification par token sur l'API (`OPSTRACK_API_TOKEN`)
+- Authentification HTTP Basic sur le webhook (`hooks.php`)
+- Accès SSH par clé privée uniquement, pas de mot de passe
+
+**Limites identifiées :**
+- Le token API `change-me` n'est pas sécurisé et doit être remplacé en production
+- L'authentification HTTP Basic du webhook transite en clair sans HTTPS

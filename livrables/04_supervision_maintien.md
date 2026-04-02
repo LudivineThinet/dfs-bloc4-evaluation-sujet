@@ -6,15 +6,21 @@
 
 ### 1.1 Services journalises
 
-<!-- Lister les services dont les journaux sont exploites et leur emplacement. -->
-
 | Service | Emplacement des journaux | Niveau de detail |
 | --- | --- | --- |
-|  |  |  |
+| Apache2 | `/var/log/apache2/opstrack_error.log` | Erreurs HTTP, tentatives d'attaque |
+| Apache2 | `/var/log/apache2/opstrack_access.log` | Toutes les requêtes entrantes |
+| Laravel | `/var/www/opstrack/storage/logs/laravel.log` | Erreurs applicatives, debug |
+| MySQL | `/var/log/mysql/error.log` | Erreurs base de données |
+| MongoDB | `/var/log/mongodb/mongod.log` | Erreurs et événements NoSQL |
 
 ### 1.2 Configuration de la journalisation
 
-<!-- Decrire la configuration mise en place pour une journalisation exploitable. -->
+La journalisation Laravel est configurée via le fichier `.env` :
+- `LOG_CHANNEL=stack`
+- `LOG_LEVEL=debug`
+
+Les logs Apache sont configurés dans le virtualhost : erreurs dans `opstrack_error.log`, accès dans `opstrack_access.log`.
 
 ## 2. Outils et configurations d'audit
 

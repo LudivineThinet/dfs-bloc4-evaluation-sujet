@@ -25,8 +25,7 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/).
 ### Securite
 - Blocage de l'IP malveillante `206.189.35.70` via `ufw` (tentatives de path traversal et injection)
 - Désactivation de `Options Indexes` dans Apache (empêche la navigation dans les dossiers)
-- Identification du token `OPSTRACK_API_TOKEN=change-me` comme faille à corriger
 - Remplacement de `orWhereRaw` par `orWhere` dans `TicketController` , suppression du risque d'injection SQL via le paramètre de recherche
 - .env.example : identifiants réels remplacés par des placeholders génériques
-- Token `OPSTRACK_API_TOKEN` remplacé par une valeur sécurisée générée via `openssl rand -base64 32
+- Token `OPSTRACK_API_TOKEN` remplacé par une valeur sécurisée générée via openssl rand -base64 32
 - Token API Next.js mis à jour dans `dispatch-dashboard/.env.local``

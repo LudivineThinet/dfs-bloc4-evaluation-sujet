@@ -62,9 +62,6 @@ Internet
 | Cache | Redis 7.0 | 1 vCPU, 1 Go RAM | Cache applicatif et stockage temporaire |
 | API externe | Open-Meteo | Externe | Enrichissement météo des interventions |
 
-## 3. Choix du fournisseur et des services
-
-<!-- Justifier le choix du fournisseur d'hebergement et des services retenus. -->
 
 ## 3. Choix du fournisseur et des services
 

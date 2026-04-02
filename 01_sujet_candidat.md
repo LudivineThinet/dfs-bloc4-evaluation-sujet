@@ -41,6 +41,7 @@ L'epreuve est construite pour evaluer les competences du bloc 4 dans une logique
 - Les messageries instantanees et toute communication entre candidats sont interdites pendant l'epreuve.
 - Les informations d'acces, de session et les secrets techniques figurent dans la fiche confidentielle remise individuellement.
 - Le candidat peut proposer des solutions techniques equivalentes a celles citees en exemple, a condition qu'elles soient justifiees, fonctionnelles et documentees.
+- **Le candidat doit forker le present depot pour y rendre ses livrables. Chaque livrable doit faire l'objet d'une Pull Request distincte vers le depot d'origine** (cf. section 7).
 
 ## 4. Environnement fourni
 
@@ -103,7 +104,7 @@ Les activites sont organisees par preuves de competence. Une meme action peut co
 | Partie 1 | Exploitation securisee de la production, domaine et TLS | `C28`, `C30` | `02_exploitation_securisee.md` |
 | Partie 1 | Deploiement automatise qualification -> production | `C31` | `03_deploiement_ci_cd.md` |
 | Partie 2 | Supervision, journalisation, sauvegarde et maintenance corrective | `C32` | `04_supervision_maintien.md` |
-| Partie 2 | Documentation technique et transfert de connaissances | `C27` | `05_documentation_maintenance.zip` |
+| Partie 2 | Documentation technique et transfert de connaissances | `C27` | `05_documentation_maintenance/` |
 
 ### 5.2 Partie 1 - Preparation du deploiement et mise en service
 
@@ -196,4 +197,16 @@ Cet ensemble doit comporter :
 | `02_exploitation_securisee.md` | Configuration production, DNS utiles, HTTPS, hardening, configuration reproductible |
 | `03_deploiement_ci_cd.md` | Chaine de deploiement, outillage retenu, controles prealables, declenchement, verification post-deploiement, conduite a tenir en cas d'echec |
 | `04_supervision_maintien.md` | Journalisation, audit, supervision, alertes, sauvegarde, diagnostic du bug, diagnostic de la faille, mesures correctives |
-| `05_documentation_maintenance.zip` | Documentation technique generee, documentation d'API ou note de non-applicabilite, `CHANGELOG.md`, `SECURITY.md` ou `journal_securite.md`, `base_connaissances.md` ou `note_passation.md` |
+| `05_documentation_maintenance/` | Documentation technique generee, documentation d'API ou note de non-applicabilite, `CHANGELOG.md`, `SECURITY.md` ou `journal_securite.md`, `base_connaissances.md` ou `note_passation.md` |
+
+## 7. Modalite de rendu
+
+Les livrables sont rendus via GitHub selon la procedure suivante :
+
+1. **Forker** ce depot (`dfs-bloc4-evaluation-sujet`) sur votre compte GitHub personnel.
+2. Completer les templates de livrables dans le dossier `livrables/` de votre fork.
+3. Pour chaque livrable, creer une **Pull Request** distincte depuis votre fork vers le depot d'origine.
+4. Nommer chaque Pull Request de maniere explicite, par exemple : `[Candidat 04] Livrable 01 — Architecture et hebergement`.
+5. Les Pull Requests doivent etre ouvertes **avant la fin de l'epreuve**.
+
+> Les Pull Requests constituent la trace formelle de rendu. Tout livrable non soumis par Pull Request avant la fin de l'epreuve sera considere comme non rendu.

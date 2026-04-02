@@ -30,7 +30,7 @@ Les templates ci-dessous structurent les livrables attendus. Le candidat peut le
 | `02_exploitation_securisee.md` | [Template](livrables/02_exploitation_securisee.md) | `C28`, `C30` |
 | `03_deploiement_ci_cd.md` | [Template](livrables/03_deploiement_ci_cd.md) | `C31` |
 | `04_supervision_maintien.md` | [Template](livrables/04_supervision_maintien.md) | `C32` |
-| `05_documentation_maintenance.zip` | [Dossier](livrables/05_documentation_maintenance/) | `C27` |
+| `05_documentation_maintenance/` | [Dossier](livrables/05_documentation_maintenance/) | `C27` |
 
 ## Application support
 
@@ -55,6 +55,16 @@ https://github.com/itakademy/dfs-bloc4-evaluation-app
 
 - [France competences — RNCP38606](https://www.francecompetences.fr/recherche/rncp/38606/)
 - [Referentiel d'activites et de competences](https://certifpro.francecompetences.fr/api/fiches/refActivity/25315/504333)
+
+## Modalite de rendu
+
+1. **Forker** ce depot sur votre compte GitHub personnel.
+2. Completer les templates dans le dossier `livrables/`.
+3. Creer une **Pull Request** distincte par livrable vers le depot d'origine.
+4. Nommer chaque PR explicitement : `[Candidat XX] Livrable 01 — Architecture et hebergement`.
+5. Les PRs doivent etre ouvertes **avant la fin de l'epreuve**.
+
+> Les Pull Requests constituent la trace formelle de rendu.
 
 ## Consignes
 

@@ -41,15 +41,18 @@ L'audit a permis d'identifier deux problèmes majeurs : une mauvaise configurati
 
 ### 3.1 Sondes mises en place
 
-<!-- Decrire les sondes de supervision configurees. -->
-
 | Sonde | Cible | Seuil ou condition | Action en cas d'alerte |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| Disponibilité HTTP | `http://eval-dfs-q-tpl-20262-09.it-students.fr` | Réponse non 200 | Redémarrage Apache + notification |
+| État MySQL | Service `mysql` | Service arrêté | Redémarrage + notification |
+| État Redis | Service `redis` | Service arrêté | Redémarrage + notification |
+| État MongoDB | Service `mongod` | Service arrêté | Redémarrage + notification |
+| Espace disque | Partition `/` | Utilisation > 85% | Notification (actuellement à 77.5%) |
+| Logs d'erreur Apache | `/var/log/apache2/opstrack_error.log` | Nouvelles erreurs critiques | Analyse manuelle |
 
 ### 3.2 Mecanisme d'alerte
 
-<!-- Decrire comment les alertes sont remontees et traitees. -->
+Dans le cadre de cet examen, la supervision est assurée manuellement via la lecture des logs et la vérification des services. En production, il serait recommandé de mettre en place un outil de supervision comme **UptimeRobot** (gratuit, surveille la disponibilité HTTP) ou **Netdata** (supervision système en temps réel) avec des alertes par email.
 
 ## 4. Strategie de sauvegarde et restauration
 

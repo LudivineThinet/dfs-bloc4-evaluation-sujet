@@ -87,12 +87,19 @@ Le choix d'AWS est cohérent avec l'environnement fourni pour l'épreuve, qui re
 
 ## 4. Estimation des couts
 
-<!-- Fournir une estimation annuelle coherente du cout d'hebergement. -->
-
 | Poste de depense | Cout mensuel estime | Cout annuel estime |
 | --- | --- | --- |
-|  |  |  |
-| **Total** |  |  |
+| EC2 t3.medium (serveur web + Laravel) | ~30 € | ~360 € |
+| RDS MySQL t3.micro | ~15 € | ~180 € |
+| ElastiCache Redis t3.micro | ~15 € | ~180 € |
+| DocumentDB t3.medium (MongoDB) | ~45 € | ~540 € |
+| EC2 t3.small (microservice Next.js) | ~15 € | ~180 € |
+| Route 53 (DNS) | ~1 € | ~12 € |
+| Certificate Manager (TLS) | 0 € | 0 € |
+| S3 (sauvegardes) | ~5 € | ~60 € |
+| **Total estimé** | **~126 €** | **~1 512 €** |
+
+> Estimations indicatives basées sur les tarifs publics AWS eu-west-3. Le calculateur officiel AWS (calculator.aws) permet d'affiner ces chiffres selon l'usage réel.
 
 ## 5. Elasticite et evolutivite
 

@@ -19,9 +19,12 @@ Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/).
 ### Corrige
 - Bug : les compteurs du tableau de bord affichaient des valeurs périmées en raison d'une mauvaise configuration du cache (Redis non utilisé)
 - Bug SQL : recherche de tickets avec `orWhereRaw` mal groupée corrigée dans `TicketController`, les filtres de priorité s'appliquent désormais correctement
+- Bug WebhookController : déduplication via firstOrCreate() + statut mis à jour depuis le payload
+- Bug Next.js : payload.items remplacé par payload.data
 
 ### Securite
 - Blocage de l'IP malveillante `206.189.35.70` via `ufw` (tentatives de path traversal et injection)
 - Désactivation de `Options Indexes` dans Apache (empêche la navigation dans les dossiers)
 - Identification du token `OPSTRACK_API_TOKEN=change-me` comme faille à corriger
 - Remplacement de `orWhereRaw` par `orWhere` dans `TicketController` , suppression du risque d'injection SQL via le paramètre de recherche
+- .env.example : identifiants réels remplacés par des placeholders génériques

@@ -104,3 +104,16 @@ Ce document recense les failles de securite identifiees pendant l'epreuve, leur 
 | Mesure corrective appliquee | Token mis à jour dans `.env.local` avec la valeur sécurisée générée via `openssl rand -base64 32` |
 | Statut | `Corrige` |
 | Preuve de correction | Fichier `.env.local` mis à jour sur le serveur de qualification |
+
+## Faille 9
+
+| Champ | Description |
+| --- | --- |
+| Date de detection | 2 avril 2026 |
+| Composant concerne | `hooks.php` — endpoint webhook |
+| Description de la faille | Le webhook vérifie uniquement l'authentification HTTP Basic, sans signature complémentaire (HMAC) ni restriction sur l'origine des appels |
+| Severite estimee | `Moyenne` |
+| Impact potentiel | Un attaquant connaissant les identifiants Basic peut envoyer de faux événements webhook |
+| Mesure corrective appliquee | Non corrigé pendant l'épreuve — correction recommandée : ajouter une vérification de signature HMAC sur le payload entrant |
+| Statut | `Identifie, non corrige à temps` |
+| Preuve de correction | N/A |

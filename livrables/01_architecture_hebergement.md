@@ -29,16 +29,38 @@ Les besoins techniques principaux sont :
 ## 2. Architecture cible proposee
 
 ### 2.1 Diagramme de deploiement
-
-<!-- Inserer ou decrire le diagramme d'architecture cible (composants, reseaux, services managés ou auto-heberges). -->
+```
+Internet
+    │
+    ▼
+[Load Balancer / CDN]
+    │
+    ▼
+[Serveur web — Apache2 + PHP]
+    ├── Laravel 12 (API REST + interface web + webhook)
+    └── Proxy → [Microservice Next.js 15 — dispatch-dashboard]
+         │
+    ┌────┴─────────────┐
+    ▼                  ▼
+[MySQL 8]          [MongoDB 8]
+(données métier)   (journaux techniques)
+    │
+    ▼
+[Redis 7]
+(cache + stockage temporaire)
+```
 
 ### 2.2 Description des composants
 
-<!-- Pour chaque composant de l'architecture cible, decrire le role, le dimensionnement retenu et le service ou la technologie choisis. -->
-
 | Composant | Service ou technologie | Dimensionnement | Justification |
 | --- | --- | --- | --- |
-|  |  |  |  |
+| Serveur web | Apache2 + PHP 8.4 | 2 vCPU, 4 Go RAM | Sert Laravel et proxyfie vers Next.js |
+| Application backend | Laravel 12 | Inclus serveur web | Framework PHP principal, API REST et webhook |
+| Microservice dashboard | Next.js 15 | 1 vCPU, 1 Go RAM | Tableau de bord secondaire indépendant |
+| Base relationnelle | MySQL 8.0 | 2 vCPU, 4 Go RAM | Données métier transactionnelles |
+| Base NoSQL | MongoDB 8.0 | 1 vCPU, 2 Go RAM | Journaux techniques et événements |
+| Cache | Redis 7.0 | 1 vCPU, 1 Go RAM | Cache applicatif et stockage temporaire |
+| API externe | Open-Meteo | Externe | Enrichissement météo des interventions |
 
 ## 3. Choix du fournisseur et des services
 
